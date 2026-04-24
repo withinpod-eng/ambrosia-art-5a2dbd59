@@ -14,7 +14,200 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      bookings: {
+        Row: {
+          booking_date: string
+          booking_time: string
+          created_at: string
+          email: string | null
+          full_name: string
+          id: string
+          notes: string | null
+          party_size: number
+          phone: string
+          status: string
+        }
+        Insert: {
+          booking_date: string
+          booking_time: string
+          created_at?: string
+          email?: string | null
+          full_name: string
+          id?: string
+          notes?: string | null
+          party_size: number
+          phone: string
+          status?: string
+        }
+        Update: {
+          booking_date?: string
+          booking_time?: string
+          created_at?: string
+          email?: string | null
+          full_name?: string
+          id?: string
+          notes?: string | null
+          party_size?: number
+          phone?: string
+          status?: string
+        }
+        Relationships: []
+      }
+      menu_categories: {
+        Row: {
+          created_at: string
+          description: string | null
+          id: string
+          name: string
+          slug: string
+          sort_order: number
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          name: string
+          slug: string
+          sort_order?: number
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          name?: string
+          slug?: string
+          sort_order?: number
+        }
+        Relationships: []
+      }
+      menu_items: {
+        Row: {
+          badge: string | null
+          calories: number | null
+          category_id: string | null
+          created_at: string
+          description: string | null
+          fiber_g: number | null
+          id: string
+          image_url: string | null
+          ingredients: string | null
+          is_available: boolean
+          is_veg: boolean
+          name: string
+          price_inr: number
+          sort_order: number
+          spicy_level: number
+        }
+        Insert: {
+          badge?: string | null
+          calories?: number | null
+          category_id?: string | null
+          created_at?: string
+          description?: string | null
+          fiber_g?: number | null
+          id?: string
+          image_url?: string | null
+          ingredients?: string | null
+          is_available?: boolean
+          is_veg?: boolean
+          name: string
+          price_inr: number
+          sort_order?: number
+          spicy_level?: number
+        }
+        Update: {
+          badge?: string | null
+          calories?: number | null
+          category_id?: string | null
+          created_at?: string
+          description?: string | null
+          fiber_g?: number | null
+          id?: string
+          image_url?: string | null
+          ingredients?: string | null
+          is_available?: boolean
+          is_veg?: boolean
+          name?: string
+          price_inr?: number
+          sort_order?: number
+          spicy_level?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "menu_items_category_id_fkey"
+            columns: ["category_id"]
+            isOneToOne: false
+            referencedRelation: "menu_categories"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      orders: {
+        Row: {
+          created_at: string
+          customer_address: string | null
+          customer_name: string
+          customer_phone: string
+          id: string
+          items: Json
+          notes: string | null
+          status: string
+          subtotal_inr: number
+          total_inr: number
+        }
+        Insert: {
+          created_at?: string
+          customer_address?: string | null
+          customer_name: string
+          customer_phone: string
+          id?: string
+          items: Json
+          notes?: string | null
+          status?: string
+          subtotal_inr: number
+          total_inr: number
+        }
+        Update: {
+          created_at?: string
+          customer_address?: string | null
+          customer_name?: string
+          customer_phone?: string
+          id?: string
+          items?: Json
+          notes?: string | null
+          status?: string
+          subtotal_inr?: number
+          total_inr?: number
+        }
+        Relationships: []
+      }
+      reviews: {
+        Row: {
+          author_name: string
+          body: string
+          created_at: string
+          id: string
+          is_published: boolean
+          rating: number
+        }
+        Insert: {
+          author_name: string
+          body: string
+          created_at?: string
+          id?: string
+          is_published?: boolean
+          rating: number
+        }
+        Update: {
+          author_name?: string
+          body?: string
+          created_at?: string
+          id?: string
+          is_published?: boolean
+          rating?: number
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
