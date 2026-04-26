@@ -7,10 +7,6 @@ import { useMenu } from "@/hooks/use-menu";
 import { MenuCard } from "@/components/MenuCard";
 import { SectionHeader } from "@/routes/index";
 import { cn } from "@/lib/utils";
-import butterChicken from "@/assets/dish-butter-chicken.jpg";
-import biryani from "@/assets/dish-biryani.jpg";
-import paneerTikka from "@/assets/dish-paneer-tikka.jpg";
-import gulabJamun from "@/assets/dish-gulab-jamun.jpg";
 
 const searchSchema = z.object({ category: z.string().optional() });
 
@@ -26,18 +22,6 @@ export const Route = createFileRoute("/menu")({
   }),
   component: MenuPage,
 });
-
-const IMAGE_MAP: Record<string, string> = {
-  "Butter Chicken": butterChicken,
-  "Hyderabadi Mutton Biryani": biryani,
-  "Awadhi Chicken Biryani": biryani,
-  "Subz Dum Biryani": biryani,
-  "Tandoori Paneer Tikka": paneerTikka,
-  "Murgh Malai Kebab": paneerTikka,
-  "Crispy Lotus Stem Honey Chilli": paneerTikka,
-  "Saffron Gulab Jamun": gulabJamun,
-  "Pista Kulfi": gulabJamun,
-};
 
 function MenuPage() {
   const { data, isLoading } = useMenu();
@@ -158,7 +142,7 @@ function MenuPage() {
               )}
               <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
                 {list.map((item) => (
-                  <MenuCard key={item.id} item={item} image={IMAGE_MAP[item.name]} />
+                  <MenuCard key={item.id} item={item} />
                 ))}
               </div>
             </div>
