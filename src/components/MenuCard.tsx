@@ -29,7 +29,7 @@ export function MenuCard({ item, image }: { item: MenuItem; image?: string }) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-50px" }}
       transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-      className="group relative flex flex-col overflow-hidden rounded-3xl border bg-card shadow-soft transition-all duration-500 hover:-translate-y-1 hover:shadow-elevated"
+      className="group relative flex flex-col overflow-hidden rounded-3xl border bg-card shadow-soft transition-all duration-500 hover:-translate-y-2 hover:border-saffron hover:shadow-glow-saffron"
     >
       {/* Image */}
       <div className="relative aspect-[4/3] overflow-hidden bg-muted">
@@ -38,14 +38,16 @@ export function MenuCard({ item, image }: { item: MenuItem; image?: string }) {
             src={img}
             alt={item.name}
             loading="lazy"
-            className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+            className="h-full w-full object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-125"
           />
         ) : (
           <div className="grid h-full w-full place-items-center bg-gradient-saffron text-saffron-foreground">
             <span className="font-display text-5xl">{item.name[0]}</span>
           </div>
         )}
-        <div className="absolute inset-0 bg-gradient-to-t from-foreground/40 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+        <div className="absolute inset-0 bg-gradient-to-t from-foreground/50 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+        {/* Saffron glow ring on hover */}
+        <div className="pointer-events-none absolute inset-0 opacity-0 ring-2 ring-inset ring-saffron/60 transition-opacity duration-500 group-hover:opacity-100" />
 
         {/* Badges */}
         <div className="absolute left-3 top-3 flex flex-wrap gap-1.5">

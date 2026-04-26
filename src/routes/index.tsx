@@ -100,10 +100,10 @@ function Hero() {
             <span className="inline-flex items-center gap-2 rounded-full border border-saffron/30 bg-saffron/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.25em] text-saffron">
               <Sparkles className="h-3.5 w-3.5" /> {slide.eyebrow}
             </span>
-            <h1 className="mt-6 font-display text-[clamp(3rem,9vw,7rem)] font-bold leading-[0.95] tracking-tight">
+            <h1 className="mt-6 font-display text-[clamp(2.5rem,7vw,5.5rem)] font-bold leading-[1] tracking-tight">
               {slide.title.split("\n").map((line, i) => (
-                <span key={i} className="block">
-                  {i === 0 ? line : <span className="text-gradient-saffron">{line}</span>}
+                <span key={i} className="inline">
+                  {i === 0 ? <>{line} </> : <span className="text-gradient-saffron">{line}</span>}
                 </span>
               ))}
             </h1>
@@ -127,30 +127,30 @@ function Hero() {
               </Link>
             </div>
 
-            <dl className="mt-12 flex gap-8 text-sm">
-              <div>
-                <dt className="text-xs uppercase tracking-wider text-muted-foreground">Rated</dt>
-                <dd className="mt-1 flex items-center gap-1 font-display text-2xl">
-                  4.9 <Star className="h-5 w-5 fill-saffron text-saffron" />
+            <dl className="mt-12 flex flex-nowrap items-start gap-4 text-sm sm:gap-6">
+              <div className="min-w-0">
+                <dt className="whitespace-nowrap text-[10px] uppercase tracking-wider text-muted-foreground sm:text-xs">Rated</dt>
+                <dd className="mt-1 flex items-center gap-1 font-display text-xl sm:text-2xl">
+                  4.9 <Star className="h-4 w-4 fill-saffron text-saffron sm:h-5 sm:w-5" />
                 </dd>
               </div>
-              <div className="border-l pl-8">
-                <dt className="text-xs uppercase tracking-wider text-muted-foreground">Diners served</dt>
-                <dd className="mt-1 font-display text-2xl">200K+</dd>
+              <div className="min-w-0 border-l pl-4 sm:pl-6">
+                <dt className="whitespace-nowrap text-[10px] uppercase tracking-wider text-muted-foreground sm:text-xs">Diners</dt>
+                <dd className="mt-1 whitespace-nowrap font-display text-xl sm:text-2xl">200K+</dd>
               </div>
-              <div className="hidden border-l pl-8 sm:block">
-                <dt className="text-xs uppercase tracking-wider text-muted-foreground">Since</dt>
-                <dd className="mt-1 font-display text-2xl">2014</dd>
+              <div className="min-w-0 border-l pl-4 sm:pl-6">
+                <dt className="whitespace-nowrap text-[10px] uppercase tracking-wider text-muted-foreground sm:text-xs">Since</dt>
+                <dd className="mt-1 font-display text-xl sm:text-2xl">2014</dd>
               </div>
             </dl>
           </motion.div>
         </AnimatePresence>
 
         {/* Image */}
-        <div className="relative aspect-square w-full max-w-[600px] justify-self-center lg:aspect-[4/5]">
+        <div className="relative aspect-square w-full max-w-[600px] justify-self-center">
           {/* Rotating ring */}
           <div className="absolute inset-0 animate-spin-slow">
-            <svg viewBox="0 0 200 200" className="h-full w-full text-saffron/40">
+            <svg viewBox="0 0 200 200" className="h-full w-full text-chilli/70 dark:text-saffron/40">
               <defs>
                 <path id="ring" d="M 100, 100 m -90, 0 a 90,90 0 1,1 180,0 a 90,90 0 1,1 -180,0" />
               </defs>
@@ -309,7 +309,7 @@ function CategoryGrid() {
               <Link
                 to="/menu"
                 search={{ category: cat.slug }}
-                className="group relative block aspect-[5/4] overflow-hidden rounded-3xl bg-card shadow-soft transition-all duration-500 hover:-translate-y-1 hover:shadow-elevated"
+                className="group relative block aspect-[5/4] overflow-hidden rounded-3xl bg-card shadow-soft transition-all duration-500 hover:-translate-y-2 hover:shadow-glow-saffron"
               >
                 <img
                   src={imageByCat[cat.slug] ?? butterChicken}
@@ -317,8 +317,9 @@ function CategoryGrid() {
                   loading="lazy"
                   className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-foreground via-foreground/40 to-transparent" />
-                <div className="absolute inset-x-0 bottom-0 p-6 text-background">
+                {/* Force dark overlay regardless of theme */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/55 to-transparent" />
+                <div className="absolute inset-x-0 bottom-0 p-6 text-white">
                   <p className="text-[10px] uppercase tracking-[0.3em] opacity-70">0{i + 1}</p>
                   <h3 className="mt-1 font-display text-3xl">{cat.name}</h3>
                   <p className="mt-1 line-clamp-1 text-sm opacity-80">{cat.description}</p>
