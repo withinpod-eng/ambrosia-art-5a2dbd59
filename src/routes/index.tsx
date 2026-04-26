@@ -282,12 +282,12 @@ function CategoryGrid() {
   const { data } = useMenu();
   const categories = (data?.categories ?? []).slice(0, 6);
   const imageByCat: Record<string, string> = {
-    starters: paneerTikka,
+    starters: malaiKebab,
     mains: butterChicken,
     biryani,
+    breads: garlicNaan,
     desserts: gulabJamun,
-    breads: paneerTikka,
-    drinks: gulabJamun,
+    drinks: mangoLassi,
   };
 
   return (
