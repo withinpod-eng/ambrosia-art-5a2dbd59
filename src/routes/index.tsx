@@ -253,13 +253,6 @@ function FeaturedDishes() {
     .filter((i) => i.badge === "bestseller" || i.badge === "chef_special")
     .slice(0, 6);
 
-  const imageMap: Record<string, string> = {
-    "Butter Chicken": butterChicken,
-    "Hyderabadi Mutton Biryani": biryani,
-    "Tandoori Paneer Tikka": paneerTikka,
-    "Saffron Gulab Jamun": gulabJamun,
-  };
-
   return (
     <section className="relative mx-auto max-w-7xl px-6 py-24">
       <SectionHeader
@@ -269,7 +262,7 @@ function FeaturedDishes() {
       />
       <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {featured.map((item) => (
-          <MenuCard key={item.id} item={item} image={imageMap[item.name]} />
+          <MenuCard key={item.id} item={item} />
         ))}
       </div>
       <div className="mt-12 text-center">
