@@ -309,7 +309,7 @@ function CategoryGrid() {
               <Link
                 to="/menu"
                 search={{ category: cat.slug }}
-                className="group relative block aspect-[5/4] overflow-hidden rounded-3xl bg-card shadow-soft transition-all duration-500 hover:-translate-y-1 hover:shadow-elevated"
+                className="group relative block aspect-[5/4] overflow-hidden rounded-3xl bg-card shadow-soft transition-all duration-500 hover:-translate-y-2 hover:shadow-glow-saffron"
               >
                 <img
                   src={imageByCat[cat.slug] ?? butterChicken}
@@ -317,8 +317,9 @@ function CategoryGrid() {
                   loading="lazy"
                   className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-foreground via-foreground/40 to-transparent" />
-                <div className="absolute inset-x-0 bottom-0 p-6 text-background">
+                {/* Force dark overlay regardless of theme */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/55 to-transparent" />
+                <div className="absolute inset-x-0 bottom-0 p-6 text-white">
                   <p className="text-[10px] uppercase tracking-[0.3em] opacity-70">0{i + 1}</p>
                   <h3 className="mt-1 font-display text-3xl">{cat.name}</h3>
                   <p className="mt-1 line-clamp-1 text-sm opacity-80">{cat.description}</p>
