@@ -17,6 +17,9 @@ const mf = new Miniflare({
   modules: true,
   scriptPath: join(serverDir, "index.js"),
   modulesRoot: serverDir,
+  modulesRules: [
+    { type: "ESModule", include: ["**/*.js", "**/*.mjs"] },
+  ],
   compatibilityDate: "2025-09-24",
   compatibilityFlags: ["nodejs_compat"],
   assets: { directory: clientDir },
