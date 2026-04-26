@@ -6,10 +6,13 @@ import { useMenu, useReviews } from "@/hooks/use-menu";
 import { MenuCard } from "@/components/MenuCard";
 import { formatINR } from "@/lib/format";
 import { cn } from "@/lib/utils";
-import butterChicken from "@/assets/dish-butter-chicken.jpg";
-import biryani from "@/assets/dish-biryani.jpg";
-import paneerTikka from "@/assets/dish-paneer-tikka.jpg";
-import gulabJamun from "@/assets/dish-gulab-jamun.jpg";
+import butterChicken from "@/assets/menu/butter-chicken.jpg";
+import biryani from "@/assets/menu/mutton-biryani.jpg";
+import paneerTikka from "@/assets/menu/paneer-tikka.jpg";
+import gulabJamun from "@/assets/menu/gulab-jamun.jpg";
+import malaiKebab from "@/assets/menu/malai-kebab.jpg";
+import garlicNaan from "@/assets/menu/garlic-naan.jpg";
+import mangoLassi from "@/assets/menu/mango-lassi.jpg";
 import ambience from "@/assets/restaurant-ambience.jpg";
 
 const HERO_SLIDES = [
