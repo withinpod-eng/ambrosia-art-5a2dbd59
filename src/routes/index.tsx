@@ -6,10 +6,13 @@ import { useMenu, useReviews } from "@/hooks/use-menu";
 import { MenuCard } from "@/components/MenuCard";
 import { formatINR } from "@/lib/format";
 import { cn } from "@/lib/utils";
-import butterChicken from "@/assets/dish-butter-chicken.jpg";
-import biryani from "@/assets/dish-biryani.jpg";
-import paneerTikka from "@/assets/dish-paneer-tikka.jpg";
-import gulabJamun from "@/assets/dish-gulab-jamun.jpg";
+import butterChicken from "@/assets/menu/butter-chicken.jpg";
+import biryani from "@/assets/menu/mutton-biryani.jpg";
+import paneerTikka from "@/assets/menu/paneer-tikka.jpg";
+import gulabJamun from "@/assets/menu/gulab-jamun.jpg";
+import malaiKebab from "@/assets/menu/malai-kebab.jpg";
+import garlicNaan from "@/assets/menu/garlic-naan.jpg";
+import mangoLassi from "@/assets/menu/mango-lassi.jpg";
 import ambience from "@/assets/restaurant-ambience.jpg";
 
 const HERO_SLIDES = [
@@ -253,13 +256,6 @@ function FeaturedDishes() {
     .filter((i) => i.badge === "bestseller" || i.badge === "chef_special")
     .slice(0, 6);
 
-  const imageMap: Record<string, string> = {
-    "Butter Chicken": butterChicken,
-    "Hyderabadi Mutton Biryani": biryani,
-    "Tandoori Paneer Tikka": paneerTikka,
-    "Saffron Gulab Jamun": gulabJamun,
-  };
-
   return (
     <section className="relative mx-auto max-w-7xl px-6 py-24">
       <SectionHeader
@@ -269,7 +265,7 @@ function FeaturedDishes() {
       />
       <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {featured.map((item) => (
-          <MenuCard key={item.id} item={item} image={imageMap[item.name]} />
+          <MenuCard key={item.id} item={item} />
         ))}
       </div>
       <div className="mt-12 text-center">
@@ -289,12 +285,12 @@ function CategoryGrid() {
   const { data } = useMenu();
   const categories = (data?.categories ?? []).slice(0, 6);
   const imageByCat: Record<string, string> = {
-    starters: paneerTikka,
+    starters: malaiKebab,
     mains: butterChicken,
     biryani,
+    breads: garlicNaan,
     desserts: gulabJamun,
-    breads: paneerTikka,
-    drinks: gulabJamun,
+    drinks: mangoLassi,
   };
 
   return (

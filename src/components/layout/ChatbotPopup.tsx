@@ -2,7 +2,6 @@ import { useEffect, useRef, useState } from "react";
 import { Bot, Send, X, CheckCircle2, Loader2, Sparkles } from "lucide-react";
 import { useCart } from "@/store/cart";
 import { formatINR } from "@/lib/format";
-import { supabase } from "@/integrations/supabase/client";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 
@@ -76,32 +75,17 @@ export function ChatbotPopup() {
   const placeOrder = async () => {
     setStage("placing");
     push({ role: "bot", text: "Securing your table in our kitchen queue…", timestamp: Date.now() });
-    try {
-      const { data, error } = await supabase
-        .from("orders")
-        .insert({
-          customer_name: name,
-          customer_phone: phone,
-          items: items.map((i) => ({ id: i.id, name: i.name, qty: i.quantity, price: i.price })),
-          subtotal_inr: total,
-          total_inr: grand,
-          status: "pending",
-        })
-        .select("id")
-        .single();
-      if (error) throw error;
-      setOrderId(data.id.slice(0, 8).toUpperCase());
-      setStage("done");
-      push({
-        role: "bot",
-        text: `Confirmed! Your order #${data.id.slice(0, 8).toUpperCase()} is on its way. We'll WhatsApp ${phone} with live updates.`,
-        timestamp: Date.now(),
-      });
-      setTimeout(() => clear(), 1500);
-    } catch (e) {
-      setStage("confirm");
-      push({ role: "bot", text: "Hmm, our kitchen line dropped briefly. Please type 'yes' to retry.", timestamp: Date.now() });
-    }
+    // Static demo: generate a local order reference. Wire to a webhook later.
+    await new Promise((r) => setTimeout(r, 1200));
+    const ref = Math.random().toString(36).slice(2, 10).toUpperCase();
+    setOrderId(ref);
+    setStage("done");
+    push({
+      role: "bot",
+      text: `Confirmed! Your order #${ref} is on its way. We'll WhatsApp ${phone} with live updates.`,
+      timestamp: Date.now(),
+    });
+    setTimeout(() => clear(), 1500);
   };
 
   if (!isChatOpen) return null;

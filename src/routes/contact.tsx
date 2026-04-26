@@ -2,7 +2,6 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Phone, Mail, MapPin, Clock, MessageCircle, Check, Loader2 } from "lucide-react";
-import { supabase } from "@/integrations/supabase/client";
 import { SectionHeader } from "@/routes/index";
 import { toast } from "sonner";
 
@@ -34,16 +33,9 @@ function ContactPage() {
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSubmitting(true);
-    const { error } = await supabase.from("bookings").insert({
-      ...form,
-      party_size: Number(form.party_size),
-      status: "pending",
-    });
+    // Static demo: simulate a network call. Wire to Formspree/Make/n8n webhook later.
+    await new Promise((r) => setTimeout(r, 700));
     setSubmitting(false);
-    if (error) {
-      toast.error("Could not submit reservation", { description: error.message });
-      return;
-    }
     setDone(true);
     toast.success("Reservation received", { description: "We'll WhatsApp you a confirmation shortly." });
   };
