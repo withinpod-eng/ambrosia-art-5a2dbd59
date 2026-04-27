@@ -309,8 +309,10 @@ function CategoryGrid() {
               <Link
                 to="/menu"
                 search={{ category: cat.slug }}
-                className="group relative block aspect-[5/4] overflow-hidden rounded-3xl bg-card shadow-soft transition-all duration-500 hover:-translate-y-2 hover:shadow-glow-saffron"
+                className="group relative block aspect-[5/4] overflow-hidden rounded-3xl border-2 border-border bg-card shadow-soft transition-all duration-500 hover:-translate-y-2 hover:border-saffron hover:shadow-glow-saffron"
               >
+                {/* Ambient background glow on hover */}
+                <div className="pointer-events-none absolute -inset-2 -z-10 rounded-[2rem] bg-gradient-saffron opacity-0 blur-2xl transition-opacity duration-500 group-hover:opacity-40" />
                 <img
                   src={imageByCat[cat.slug] ?? butterChicken}
                   alt={cat.name}
