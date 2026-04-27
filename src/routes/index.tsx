@@ -194,12 +194,14 @@ function Hero() {
             <p className="font-display text-2xl font-semibold text-chilli">{formatINR(slide.price)}</p>
           </motion.div>
 
-          {/* Slide controls — placed below the circle so they don't overlap */}
-          <div className="absolute bottom-0 left-1/2 z-10 flex -translate-x-1/2 items-center gap-3 rounded-full border bg-card/90 px-2 py-1.5 shadow-soft backdrop-blur">
+        </div>
+
+          {/* Slide controls — stacked beneath the circle, always clear of the image */}
+          <div className="z-10 flex items-center gap-3 rounded-full border bg-card/90 px-2 py-1.5 shadow-soft backdrop-blur">
             <button
               onClick={() => setIndex((i) => (i - 1 + HERO_SLIDES.length) % HERO_SLIDES.length)}
               aria-label="Previous"
-              className="grid h-8 w-8 place-items-center rounded-full transition-colors hover:bg-accent/30"
+              className="grid h-8 w-8 place-items-center rounded-full transition-all hover:bg-accent/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-saffron focus-visible:ring-offset-2 focus-visible:ring-offset-background active:scale-95 active:shadow-glow-saffron"
             >
               <ChevronLeft className="h-4 w-4" />
             </button>
@@ -210,7 +212,7 @@ function Hero() {
                   onClick={() => setIndex(i)}
                   aria-label={`Slide ${i + 1}`}
                   className={cn(
-                    "h-1.5 rounded-full transition-all",
+                    "h-1.5 rounded-full transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-saffron",
                     i === index ? "w-8 bg-gradient-primary" : "w-1.5 bg-muted"
                   )}
                 />
@@ -219,7 +221,7 @@ function Hero() {
             <button
               onClick={() => setIndex((i) => (i + 1) % HERO_SLIDES.length)}
               aria-label="Next"
-              className="grid h-8 w-8 place-items-center rounded-full transition-colors hover:bg-accent/30"
+              className="grid h-8 w-8 place-items-center rounded-full transition-all hover:bg-accent/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-saffron focus-visible:ring-offset-2 focus-visible:ring-offset-background active:scale-95 active:shadow-glow-saffron"
             >
               <ChevronRight className="h-4 w-4" />
             </button>
