@@ -29,10 +29,10 @@ export function MenuCard({ item, image }: { item: MenuItem; image?: string }) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-50px" }}
       transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-      className="group relative flex flex-col overflow-hidden rounded-3xl border border-border bg-card shadow-soft transition-all duration-500 hover:-translate-y-2 hover:border-saffron hover:shadow-[0_0_0_2px_hsl(var(--saffron)/0.6),0_20px_60px_-15px_hsl(var(--saffron)/0.55),0_0_80px_-10px_hsl(var(--chilli)/0.45)]"
+      className="group relative flex flex-col overflow-hidden rounded-3xl border-2 border-border bg-card shadow-soft transition-all duration-500 hover:-translate-y-2 hover:border-saffron hover:shadow-glow-saffron"
     >
       {/* Ambient background glow on hover */}
-      <div className="pointer-events-none absolute -inset-1 -z-10 rounded-[2rem] bg-gradient-to-br from-saffron/30 via-chilli/20 to-ember/30 opacity-0 blur-2xl transition-opacity duration-500 group-hover:opacity-100" />
+      <div className="pointer-events-none absolute -inset-2 -z-10 rounded-[2rem] bg-gradient-saffron opacity-0 blur-2xl transition-opacity duration-500 group-hover:opacity-40" />
 
       {/* Image */}
       <div className="relative aspect-[4/3] overflow-hidden bg-muted">
