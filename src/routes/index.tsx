@@ -193,8 +193,8 @@ function Hero() {
             <p className="font-display text-2xl font-semibold text-chilli">{formatINR(slide.price)}</p>
           </motion.div>
 
-          {/* Slide controls */}
-          <div className="absolute -bottom-4 left-1/2 z-10 flex -translate-x-1/2 items-center gap-3 rounded-full border bg-card/90 px-2 py-1.5 shadow-soft backdrop-blur">
+          {/* Slide controls — placed below the circle so they don't overlap */}
+          <div className="absolute bottom-0 left-1/2 z-10 flex -translate-x-1/2 items-center gap-3 rounded-full border bg-card/90 px-2 py-1.5 shadow-soft backdrop-blur">
             <button
               onClick={() => setIndex((i) => (i - 1 + HERO_SLIDES.length) % HERO_SLIDES.length)}
               aria-label="Previous"
