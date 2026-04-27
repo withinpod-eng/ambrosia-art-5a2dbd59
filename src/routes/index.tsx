@@ -146,8 +146,9 @@ function Hero() {
           </motion.div>
         </AnimatePresence>
 
-        {/* Image */}
-        <div className="relative aspect-square w-full max-w-[600px] justify-self-center pb-12">
+        {/* Image + controls stack — controls live BELOW the circle, never overlap */}
+        <div className="flex w-full flex-col items-center gap-6 justify-self-center">
+        <div className="relative aspect-square w-full max-w-[600px]">
           {/* Rotating ring */}
           <div className="absolute inset-0 animate-spin-slow">
             <svg viewBox="0 0 200 200" className="h-full w-full text-chilli/70 dark:text-saffron/40">
