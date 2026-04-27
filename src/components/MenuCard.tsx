@@ -1,5 +1,6 @@
 import { Plus, Flame, Leaf } from "lucide-react";
 import { motion } from "framer-motion";
+import { useNavigate } from "@tanstack/react-router";
 import type { MenuItem } from "@/hooks/use-menu";
 import { useCart } from "@/store/cart";
 import { formatINR } from "@/lib/format";
