@@ -118,11 +118,13 @@ export function MenuCard({ item, image }: { item: MenuItem; image?: string }) {
         </dl>
 
         <button
-          onClick={() => {
+          onClick={(e) => {
+            e.stopPropagation();
             add({ id: item.id, name: item.name, price: item.price_inr, isVeg: item.is_veg, imageUrl: img });
-            toast.success(`${item.name} added`, { description: "Added to your order" });
+            toast.success(`${item.name} added`, { description: "Opening your cart…" });
+            navigate({ to: "/cart" });
           }}
-          className="group/btn mt-1 inline-flex h-11 items-center justify-center gap-2 rounded-full bg-gradient-primary text-sm font-semibold text-primary-foreground shadow-glow-chilli transition-all hover:opacity-95"
+          className="group/btn mt-1 inline-flex h-11 items-center justify-center gap-2 rounded-full bg-gradient-primary text-sm font-semibold text-primary-foreground shadow-glow-chilli transition-all hover:opacity-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-saffron focus-visible:ring-offset-2 focus-visible:ring-offset-background active:scale-[0.97] active:shadow-glow-saffron"
         >
           <Plus className="h-4 w-4 transition-transform group-hover/btn:rotate-90" />
           Add to Cart
