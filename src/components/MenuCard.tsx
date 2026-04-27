@@ -29,8 +29,11 @@ export function MenuCard({ item, image }: { item: MenuItem; image?: string }) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-50px" }}
       transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-      className="group relative flex flex-col overflow-hidden rounded-3xl border bg-card shadow-soft transition-all duration-500 hover:-translate-y-2 hover:border-saffron hover:shadow-glow-saffron"
+      className="group relative flex flex-col overflow-hidden rounded-3xl border-2 border-border bg-card shadow-soft transition-all duration-500 hover:-translate-y-2 hover:border-saffron hover:shadow-glow-saffron"
     >
+      {/* Ambient background glow on hover */}
+      <div className="pointer-events-none absolute -inset-2 -z-10 rounded-[2rem] bg-gradient-saffron opacity-0 blur-2xl transition-opacity duration-500 group-hover:opacity-40" />
+
       {/* Image */}
       <div className="relative aspect-[4/3] overflow-hidden bg-muted">
         {img ? (

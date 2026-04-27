@@ -147,7 +147,7 @@ function Hero() {
         </AnimatePresence>
 
         {/* Image */}
-        <div className="relative aspect-square w-full max-w-[600px] justify-self-center">
+        <div className="relative aspect-square w-full max-w-[600px] justify-self-center pb-12">
           {/* Rotating ring */}
           <div className="absolute inset-0 animate-spin-slow">
             <svg viewBox="0 0 200 200" className="h-full w-full text-chilli/70 dark:text-saffron/40">
@@ -193,8 +193,8 @@ function Hero() {
             <p className="font-display text-2xl font-semibold text-chilli">{formatINR(slide.price)}</p>
           </motion.div>
 
-          {/* Slide controls */}
-          <div className="absolute -bottom-4 left-1/2 z-10 flex -translate-x-1/2 items-center gap-3 rounded-full border bg-card/90 px-2 py-1.5 shadow-soft backdrop-blur">
+          {/* Slide controls — placed below the circle so they don't overlap */}
+          <div className="absolute bottom-0 left-1/2 z-10 flex -translate-x-1/2 items-center gap-3 rounded-full border bg-card/90 px-2 py-1.5 shadow-soft backdrop-blur">
             <button
               onClick={() => setIndex((i) => (i - 1 + HERO_SLIDES.length) % HERO_SLIDES.length)}
               aria-label="Previous"
@@ -309,8 +309,10 @@ function CategoryGrid() {
               <Link
                 to="/menu"
                 search={{ category: cat.slug }}
-                className="group relative block aspect-[5/4] overflow-hidden rounded-3xl bg-card shadow-soft transition-all duration-500 hover:-translate-y-2 hover:shadow-glow-saffron"
+                className="group relative block aspect-[5/4] overflow-hidden rounded-3xl border-2 border-border bg-card shadow-soft transition-all duration-500 hover:-translate-y-2 hover:border-saffron hover:shadow-glow-saffron"
               >
+                {/* Ambient background glow on hover */}
+                <div className="pointer-events-none absolute -inset-2 -z-10 rounded-[2rem] bg-gradient-saffron opacity-0 blur-2xl transition-opacity duration-500 group-hover:opacity-40" />
                 <img
                   src={imageByCat[cat.slug] ?? butterChicken}
                   alt={cat.name}
