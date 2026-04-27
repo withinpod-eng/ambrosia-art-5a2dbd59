@@ -148,60 +148,59 @@ function Hero() {
 
         {/* Image + controls stack — controls live BELOW the circle, never overlap */}
         <div className="flex w-full flex-col items-center gap-6 justify-self-center">
-        <div className="relative aspect-square w-full max-w-[600px]">
-          {/* Rotating ring */}
-          <div className="absolute inset-0 animate-spin-slow">
-            <svg viewBox="0 0 200 200" className="h-full w-full text-chilli/70 dark:text-saffron/40">
-              <defs>
-                <path id="ring" d="M 100, 100 m -90, 0 a 90,90 0 1,1 180,0 a 90,90 0 1,1 -180,0" />
-              </defs>
-              <text fontSize="6" fill="currentColor" letterSpacing="3" className="font-display uppercase">
-                <textPath href="#ring">
-                  Saffron &amp; Smoke · Modern Indian Kitchen · Mumbai · Tandoor · Biryani · Saffron &amp; Smoke · 
-                </textPath>
-              </text>
-            </svg>
-          </div>
+          <div className="relative aspect-square w-full max-w-[600px]">
+            {/* Rotating ring */}
+            <div className="absolute inset-0 animate-spin-slow">
+              <svg viewBox="0 0 200 200" className="h-full w-full text-chilli/70 dark:text-saffron/40">
+                <defs>
+                  <path id="ring" d="M 100, 100 m -90, 0 a 90,90 0 1,1 180,0 a 90,90 0 1,1 -180,0" />
+                </defs>
+                <text fontSize="6" fill="currentColor" letterSpacing="3" className="font-display uppercase">
+                  <textPath href="#ring">
+                    Saffron &amp; Smoke · Modern Indian Kitchen · Mumbai · Tandoor · Biryani · Saffron &amp; Smoke ·
+                  </textPath>
+                </text>
+              </svg>
+            </div>
 
-          <AnimatePresence mode="wait">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, scale: 0.85, rotate: -8 }}
+                animate={{ opacity: 1, scale: 1, rotate: 0 }}
+                exit={{ opacity: 0, scale: 0.85, rotate: 8 }}
+                transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+                className="absolute inset-[8%] overflow-hidden rounded-full shadow-elevated ring-8 ring-card"
+              >
+                <img
+                  src={slide.image}
+                  alt={slide.title.replace("\n", " ")}
+                  className="h-full w-full object-cover"
+                  fetchPriority={index === 0 ? "high" : "auto"}
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-foreground/30 to-transparent" />
+              </motion.div>
+            </AnimatePresence>
+
+            {/* Floating price tag */}
             <motion.div
-              key={index}
-              initial={{ opacity: 0, scale: 0.85, rotate: -8 }}
-              animate={{ opacity: 1, scale: 1, rotate: 0 }}
-              exit={{ opacity: 0, scale: 0.85, rotate: 8 }}
-              transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-              className="absolute inset-[8%] overflow-hidden rounded-full shadow-elevated ring-8 ring-card"
+              key={`price-${index}`}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+              className="absolute -left-2 top-10 hidden rounded-full border bg-card/90 px-5 py-3 shadow-elevated backdrop-blur sm:block animate-float-slow"
             >
-              <img
-                src={slide.image}
-                alt={slide.title.replace("\n", " ")}
-                className="h-full w-full object-cover"
-                fetchPriority={index === 0 ? "high" : "auto"}
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-foreground/30 to-transparent" />
+              <p className="text-[10px] uppercase tracking-widest text-muted-foreground">From</p>
+              <p className="font-display text-2xl font-semibold text-chilli">{formatINR(slide.price)}</p>
             </motion.div>
-          </AnimatePresence>
-
-          {/* Floating price tag */}
-          <motion.div
-            key={`price-${index}`}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className="absolute -left-2 top-10 hidden rounded-full border bg-card/90 px-5 py-3 shadow-elevated backdrop-blur sm:block animate-float-slow"
-          >
-            <p className="text-[10px] uppercase tracking-widest text-muted-foreground">From</p>
-            <p className="font-display text-2xl font-semibold text-chilli">{formatINR(slide.price)}</p>
-          </motion.div>
-
-        </div>
+          </div>
 
           {/* Slide controls — stacked beneath the circle, always clear of the image */}
           <div className="z-10 flex items-center gap-3 rounded-full border bg-card/90 px-2 py-1.5 shadow-soft backdrop-blur">
             <button
               onClick={() => setIndex((i) => (i - 1 + HERO_SLIDES.length) % HERO_SLIDES.length)}
               aria-label="Previous"
-              className="grid h-8 w-8 place-items-center rounded-full transition-all hover:bg-accent/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-saffron focus-visible:ring-offset-2 focus-visible:ring-offset-background active:scale-95 active:shadow-glow-saffron"
+              className="grid h-8 w-8 place-items-center rounded-full transition-all hover:bg-accent/30 active:scale-95"
             >
               <ChevronLeft className="h-4 w-4" />
             </button>
@@ -212,7 +211,7 @@ function Hero() {
                   onClick={() => setIndex(i)}
                   aria-label={`Slide ${i + 1}`}
                   className={cn(
-                    "h-1.5 rounded-full transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-saffron",
+                    "h-1.5 rounded-full transition-all",
                     i === index ? "w-8 bg-gradient-primary" : "w-1.5 bg-muted"
                   )}
                 />
@@ -221,7 +220,7 @@ function Hero() {
             <button
               onClick={() => setIndex((i) => (i + 1) % HERO_SLIDES.length)}
               aria-label="Next"
-              className="grid h-8 w-8 place-items-center rounded-full transition-all hover:bg-accent/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-saffron focus-visible:ring-offset-2 focus-visible:ring-offset-background active:scale-95 active:shadow-glow-saffron"
+              className="grid h-8 w-8 place-items-center rounded-full transition-all hover:bg-accent/30 active:scale-95"
             >
               <ChevronRight className="h-4 w-4" />
             </button>
