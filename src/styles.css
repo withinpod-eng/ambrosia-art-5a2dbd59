@@ -336,3 +336,27 @@
   }
   .animate-pulse-glow { animation: pulse-glow 2.2s ease-out infinite; }
 }
+
+/* ====================================================================
+   Universal interactive feedback — outline + ambient glow on click/focus.
+   Applies to every button/link in BOTH themes via the saffron token.
+   ==================================================================== */
+@layer base {
+  button:focus-visible,
+  a:focus-visible,
+  [role="button"]:focus-visible {
+    outline: 2px solid var(--saffron);
+    outline-offset: 2px;
+    box-shadow:
+      0 0 0 4px color-mix(in oklab, var(--saffron) 25%, transparent),
+      0 0 28px 6px color-mix(in oklab, var(--saffron) 35%, transparent);
+  }
+  button:active,
+  a:active,
+  [role="button"]:active {
+    box-shadow:
+      0 0 0 3px color-mix(in oklab, var(--saffron) 35%, transparent),
+      0 0 32px 8px color-mix(in oklab, var(--saffron) 45%, transparent);
+    transition: box-shadow 0.15s ease;
+  }
+}
