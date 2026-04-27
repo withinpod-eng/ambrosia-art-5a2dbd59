@@ -1,6 +1,6 @@
-import { Plus, Flame, Leaf } from "lucide-react";
+import { useState } from "react";
+import { Plus, Minus, Flame, Leaf } from "lucide-react";
 import { motion } from "framer-motion";
-import { useNavigate } from "@tanstack/react-router";
 import type { MenuItem } from "@/hooks/use-menu";
 import { useCart } from "@/store/cart";
 import { formatINR } from "@/lib/format";
@@ -22,8 +22,16 @@ const BADGE_LABEL: Record<string, string> = {
 
 export function MenuCard({ item, image }: { item: MenuItem; image?: string }) {
   const add = useCart((s) => s.add);
-  const navigate = useNavigate();
+  const setQty = useCart((s) => s.setQty);
+  const cartItem = useCart((s) => s.items.find((i) => i.id === item.id));
+  const qty = cartItem?.quantity ?? 0;
+  const [selected, setSelected] = useState(false);
   const img = image ?? item.image_url ?? null;
+
+  const handleAdd = () => {
+    add({ id: item.id, name: item.name, price: item.price_inr, isVeg: item.is_veg, imageUrl: img });
+    toast.success(`${item.name} added`);
+  };
 
   return (
     <motion.article
@@ -31,11 +39,20 @@ export function MenuCard({ item, image }: { item: MenuItem; image?: string }) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-50px" }}
       transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+      onClick={() => setSelected((s) => !s)}
       tabIndex={0}
-      className="group relative flex flex-col overflow-hidden rounded-3xl border-2 border-border bg-card shadow-soft transition-all duration-500 hover:-translate-y-2 hover:border-saffron hover:shadow-glow-saffron focus-within:border-saffron focus-within:shadow-glow-saffron focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-saffron focus-visible:ring-offset-2 focus-visible:ring-offset-background active:scale-[0.99]"
+      className={cn(
+        "group relative flex cursor-pointer flex-col overflow-hidden rounded-3xl border-2 bg-card shadow-soft transition-all duration-500 hover:-translate-y-2 hover:border-saffron hover:shadow-glow-saffron focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-saffron focus-visible:ring-offset-2 focus-visible:ring-offset-background active:scale-[0.99]",
+        selected ? "border-saffron shadow-glow-saffron" : "border-border"
+      )}
     >
-      {/* Ambient background glow on hover */}
-      <div className="pointer-events-none absolute -inset-2 -z-10 rounded-[2rem] bg-gradient-saffron opacity-0 blur-2xl transition-opacity duration-500 group-hover:opacity-40" />
+      {/* Ambient background glow on hover/select */}
+      <div
+        className={cn(
+          "pointer-events-none absolute -inset-2 -z-10 rounded-[2rem] bg-gradient-saffron blur-2xl transition-opacity duration-500 group-hover:opacity-40",
+          selected ? "opacity-40" : "opacity-0"
+        )}
+      />
 
       {/* Image */}
       <div className="relative aspect-[4/3] overflow-hidden bg-muted">
@@ -52,8 +69,12 @@ export function MenuCard({ item, image }: { item: MenuItem; image?: string }) {
           </div>
         )}
         <div className="absolute inset-0 bg-gradient-to-t from-foreground/50 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
-        {/* Saffron glow ring on hover */}
-        <div className="pointer-events-none absolute inset-0 opacity-0 ring-2 ring-inset ring-saffron/60 transition-opacity duration-500 group-hover:opacity-100" />
+        <div
+          className={cn(
+            "pointer-events-none absolute inset-0 ring-2 ring-inset ring-saffron/60 transition-opacity duration-500 group-hover:opacity-100",
+            selected ? "opacity-100" : "opacity-0"
+          )}
+        />
 
         {/* Badges */}
         <div className="absolute left-3 top-3 flex flex-wrap gap-1.5">
@@ -117,18 +138,39 @@ export function MenuCard({ item, image }: { item: MenuItem; image?: string }) {
           </div>
         </dl>
 
-        <button
-          onClick={(e) => {
-            e.stopPropagation();
-            add({ id: item.id, name: item.name, price: item.price_inr, isVeg: item.is_veg, imageUrl: img });
-            toast.success(`${item.name} added`, { description: "Opening your cart…" });
-            navigate({ to: "/cart" });
-          }}
-          className="group/btn mt-1 inline-flex h-11 items-center justify-center gap-2 rounded-full bg-gradient-primary text-sm font-semibold text-primary-foreground shadow-glow-chilli transition-all hover:opacity-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-saffron focus-visible:ring-offset-2 focus-visible:ring-offset-background active:scale-[0.97] active:shadow-glow-saffron"
-        >
-          <Plus className="h-4 w-4 transition-transform group-hover/btn:rotate-90" />
-          Add to Cart
-        </button>
+        {qty === 0 ? (
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              handleAdd();
+            }}
+            className="group/btn mt-1 inline-flex h-11 items-center justify-center gap-2 rounded-full bg-gradient-primary text-sm font-semibold text-primary-foreground shadow-glow-chilli transition-all hover:opacity-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-saffron focus-visible:ring-offset-2 focus-visible:ring-offset-background active:scale-[0.97]"
+          >
+            <Plus className="h-4 w-4 transition-transform group-hover/btn:rotate-90" />
+            Add to Cart
+          </button>
+        ) : (
+          <div
+            onClick={(e) => e.stopPropagation()}
+            className="mt-1 inline-flex h-11 items-center justify-between rounded-full border-2 border-saffron bg-card shadow-glow-saffron"
+          >
+            <button
+              onClick={() => setQty(item.id, qty - 1)}
+              aria-label="Decrease quantity"
+              className="grid h-full w-12 place-items-center rounded-l-full text-saffron transition-colors hover:bg-saffron/10 active:scale-95"
+            >
+              <Minus className="h-4 w-4" />
+            </button>
+            <span className="font-display text-lg font-semibold text-foreground">{qty}</span>
+            <button
+              onClick={() => setQty(item.id, qty + 1)}
+              aria-label="Increase quantity"
+              className="grid h-full w-12 place-items-center rounded-r-full text-saffron transition-colors hover:bg-saffron/10 active:scale-95"
+            >
+              <Plus className="h-4 w-4" />
+            </button>
+          </div>
+        )}
       </div>
     </motion.article>
   );

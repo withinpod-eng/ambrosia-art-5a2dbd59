@@ -311,10 +311,10 @@ function CategoryGrid() {
               <Link
                 to="/menu"
                 search={{ category: cat.slug }}
-                className="group relative block aspect-[5/4] overflow-hidden rounded-3xl border-2 border-border bg-card shadow-soft transition-all duration-500 hover:-translate-y-2 hover:border-saffron hover:shadow-glow-saffron"
+                className="group relative block aspect-[5/4] overflow-hidden rounded-3xl border-2 border-border bg-card shadow-soft transition-all duration-500 hover:-translate-y-2 hover:border-saffron hover:shadow-glow-saffron focus-visible:border-saffron focus-visible:shadow-glow-saffron focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-saffron focus-visible:ring-offset-2 focus-visible:ring-offset-background active:scale-[0.98]"
               >
                 {/* Ambient background glow on hover */}
-                <div className="pointer-events-none absolute -inset-2 -z-10 rounded-[2rem] bg-gradient-saffron opacity-0 blur-2xl transition-opacity duration-500 group-hover:opacity-40" />
+                <div className="pointer-events-none absolute -inset-2 -z-10 rounded-[2rem] bg-gradient-saffron opacity-0 blur-2xl transition-opacity duration-500 group-hover:opacity-40 group-focus-visible:opacity-40" />
                 <img
                   src={imageByCat[cat.slug] ?? butterChicken}
                   alt={cat.name}
@@ -390,7 +390,8 @@ function ChefStory() {
               { icon: Clock, label: "48hr Marinades", desc: "Slow & deliberate" },
               { icon: Award, label: "Award Winning", desc: "TimeOut Top 10" },
             ].map(({ icon: Icon, label, desc }) => (
-              <li key={label} className="rounded-2xl border bg-card p-4 transition-colors hover:border-saffron">
+              <li key={label} className="group relative rounded-2xl border-2 border-border bg-card p-4 transition-all duration-500 hover:-translate-y-1 hover:border-saffron hover:shadow-glow-saffron">
+                <div className="pointer-events-none absolute -inset-1 -z-10 rounded-[1.5rem] bg-gradient-saffron opacity-0 blur-xl transition-opacity duration-500 group-hover:opacity-40" />
                 <Icon className="h-5 w-5 text-saffron" />
                 <p className="mt-2 font-display text-lg">{label}</p>
                 <p className="text-xs text-muted-foreground">{desc}</p>
@@ -424,8 +425,9 @@ function Reviews() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: i * 0.08 }}
-              className="flex flex-col rounded-3xl border bg-card p-6 shadow-soft transition-all hover:-translate-y-1 hover:shadow-elevated"
+              className="group relative flex flex-col rounded-3xl border-2 border-border bg-card p-6 shadow-soft transition-all duration-500 hover:-translate-y-2 hover:border-saffron hover:shadow-glow-saffron"
             >
+              <div className="pointer-events-none absolute -inset-2 -z-10 rounded-[2rem] bg-gradient-saffron opacity-0 blur-2xl transition-opacity duration-500 group-hover:opacity-40" />
               <div className="flex gap-0.5 text-saffron">
                 {Array.from({ length: r.rating }).map((_, k) => (
                   <Star key={k} className="h-4 w-4 fill-saffron" />

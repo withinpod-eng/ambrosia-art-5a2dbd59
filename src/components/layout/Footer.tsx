@@ -40,7 +40,6 @@ export function Footer() {
             <li><Link to="/menu" className="hover:text-saffron">Menu</Link></li>
             <li><Link to="/about" className="hover:text-saffron">Our Story</Link></li>
             <li><Link to="/contact" className="hover:text-saffron">Reservations</Link></li>
-            <li><Link to="/cart" className="hover:text-saffron">Your Cart</Link></li>
           </ul>
         </div>
 
