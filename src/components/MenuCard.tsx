@@ -22,6 +22,7 @@ const BADGE_LABEL: Record<string, string> = {
 
 export function MenuCard({ item, image }: { item: MenuItem; image?: string }) {
   const add = useCart((s) => s.add);
+  const navigate = useNavigate();
   const img = image ?? item.image_url ?? null;
 
   return (
@@ -30,7 +31,8 @@ export function MenuCard({ item, image }: { item: MenuItem; image?: string }) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-50px" }}
       transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-      className="group relative flex flex-col overflow-hidden rounded-3xl border-2 border-border bg-card shadow-soft transition-all duration-500 hover:-translate-y-2 hover:border-saffron hover:shadow-glow-saffron"
+      tabIndex={0}
+      className="group relative flex flex-col overflow-hidden rounded-3xl border-2 border-border bg-card shadow-soft transition-all duration-500 hover:-translate-y-2 hover:border-saffron hover:shadow-glow-saffron focus-within:border-saffron focus-within:shadow-glow-saffron focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-saffron focus-visible:ring-offset-2 focus-visible:ring-offset-background active:scale-[0.99]"
     >
       {/* Ambient background glow on hover */}
       <div className="pointer-events-none absolute -inset-2 -z-10 rounded-[2rem] bg-gradient-saffron opacity-0 blur-2xl transition-opacity duration-500 group-hover:opacity-40" />
